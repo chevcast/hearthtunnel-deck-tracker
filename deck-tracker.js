@@ -188,7 +188,7 @@ function beginTracking() {
   refreshTable(deckTable, activeDeck.cards);
   refreshTable(opponentTable, opponentDeck.cards);
 
-  var logFile = '/Users/chev/Library/Logs/Unity/Player.log';
+  var logFile = process.env.HOME + '/Library/Logs/Unity/Player.log';
   
   var fileSize = fs.statSync(logFile).size;
   
