@@ -6,9 +6,10 @@ var screen = blessed.screen();
 var activeDeck, opponentDeck;
 var STATUS = {
   inDeck: '\033[32;1m\u274F',
-  inHand: '\033[33;1m\u25BA',
+  inHand: '\033[33;1m\u274F',
   inPlay: '\033[33;5;1m\u2B2E',
   inSecret: '\033[33;5;1m\uFF1F',
+  inWeapon: '\033[33;5;1m\u2B22',
   inGraveyard: '\033[31;1m\u2620'
 };
 screen.key(['escape', 'q', 'C-c'], function(ch, key) {
@@ -144,6 +145,7 @@ function beginTracking() {
         inHand: 0,
         inPlay: 0,
         inSecret: 0,
+        inWeapon: 0,
         inGraveyard: 0
       };
       cards.forEach(function (card) {
@@ -159,6 +161,9 @@ function beginTracking() {
             break;
           case STATUS.inSecret:
             statusMeta.inSecret++;
+            break;
+          case STATUS.inWeapon:
+            statusMeta.inWeapon++;
             break;
           case STATUS.inGraveyard:
             statusMeta.inGraveyard++;
@@ -200,6 +205,9 @@ function beginTracking() {
         break;
       case 'SECRET':
         card.status = STATUS.inSecret;
+        break;
+      case 'PLAY (Weapon)':
+        card.status = STATUS.inWeapon;
         break;
       case 'GRAVEYARD':
         card.status = STATUS.inGraveyard;

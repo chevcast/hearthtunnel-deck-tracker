@@ -16,7 +16,7 @@ fs.watch(logFile, function (event, filename) {
   fs.closeSync(fd);
   fileSize = newFileSize;
   buffer.toString().split('\n').forEach(function (line) {
-    var regex = /Thrall/;
+    var regex = /weapon/i;
     if (regex.test(line))
       console.log(line);
   });
