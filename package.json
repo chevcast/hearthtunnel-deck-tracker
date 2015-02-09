@@ -4,7 +4,7 @@
   "description": "Various scripts for interacting with Hearthstone and Twitch.",
   "main": "index.js",
   "dependencies": {
-    "blessed": "0.0.43",
+    "blessed": "0.0.44",
     "blessed-contrib": "git://github.com/chevex/blessed-contrib#table-options"
   },
   "devDependencies": {},

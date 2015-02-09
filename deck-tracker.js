@@ -24,12 +24,27 @@ var list = blessed.list({
   label: 'CHOOSE YOUR DECK',
   border: {
     type: 'line',
-    fg: 'gray',
+    fg: '#0f0',
+    bg: '#020'
   },
-  selectedFg: 'white',
-  selectedBg: 'blue',
+  style: {
+    padding: {
+      left: 10
+    },
+    fg: '#00ff00',
+    bg: 'black',
+    scrollbar: {
+      bg: 'yellow'
+    },
+    selected: {
+      fg: '#000000',
+      bg: '#00ff00'
+    }
+  },
+  scrollable: true,
   width: '100%',
-  height: '100%',
+  height: '70%',
+  top: '30%',
   keys: true,
   vi: true,
   mouse: true
@@ -57,6 +72,16 @@ list.on('select', function (box, index) {
 });
 
 screen.append(list);
+
+var logo = contrib.picture({
+  cols: 25,
+  height: '30%',
+  align: 'center',
+  file: path.join(__dirname, 'hearthstone.png'),
+  onReady: screen.render.bind(screen)
+});
+
+screen.append(logo);
 
 list.setItems(decks.map(function (deckName, index) {
   return index + '. ' + deckName;
@@ -103,8 +128,8 @@ function beginTracking() {
   screen.append(opponentTable);
 
   var debug = contrib.log({
-    height: '20%',
-    top: '80%',
+    height: '25%',
+    top: '75%',
     border: {
       type: 'line',
       fg: 'cyan'
@@ -118,6 +143,23 @@ function beginTracking() {
   });
   debug.hide();
   screen.append(debug);
+
+  var debugActive = false;
+  screen.key(['d'], function(ch, key) {
+    debugActive = !debugActive;
+    if (debugActive) {
+      deckTable.height = '50%';
+      opponentTable.height = '25%';
+      opponentTable.top = '50%';
+      debug.show();
+    } else {
+      deckTable.height = '70%';
+      opponentTable.height = '30%';
+      opponentTable.top = '70%';
+      debug.hide();
+    }
+    screen.render();
+  });
 
   function refreshTable(table, cards) {
     var meta = {};
@@ -227,10 +269,9 @@ function beginTracking() {
 
     // If the size is negative then Hearthstone/Unity must have cleaned up the log file. 
     if (sizeDiff <= 0) {
-      // Set the old file size to zero so the read cursor starts from the beginning.
-      fileSize = -1;
-      // Set the sizeDiff to the new file size so we read the entire file.
-      sizeDiff = newFileSize;
+      // Set the file size to the new file size and abort.
+      fileSize = newFileSize;
+      return;
     }
 
     // Create a buffer to store the data read from the log file.
