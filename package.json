@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "blessed": "0.0.44",
-    "blessed-contrib": "git://github.com/chevex/blessed-contrib#table-options"
+    "blessed-contrib": "git://github.com/chevex/blessed-contrib#table-options",
+    "extend": "^2.0.0"
   },
   "devDependencies": {},
   "scripts": {
