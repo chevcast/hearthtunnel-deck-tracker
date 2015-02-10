@@ -35,7 +35,7 @@ var createContainer = function () {
       fg: STYLE.border.fg,
       bg: STYLE.border.bg
     },
-    style: extend({}, STYLE)
+    style: extend(true, {}, STYLE)
   });
   box.controls = {};
   var show = box.show;
@@ -68,7 +68,7 @@ mainMenu.controls.list = blessed.list({
     fg: STYLE.border.fg,
     bg: STYLE.border.bg
   },
-  style: extend({}, STYLE, { bg: STYLE.border.bg }),
+  style: extend(true, {}, STYLE, { bg: STYLE.border.bg }),
   items: [
     'Deck Builder',
     'Start Tracking',
