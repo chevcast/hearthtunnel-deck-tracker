@@ -16,8 +16,10 @@ fs.watch(logFile, function (event, filename) {
   fs.closeSync(fd);
   fileSize = newFileSize;
   buffer.toString().split('\n').forEach(function (line) {
-    var regex = /weapon/i;
-    if (regex.test(line))
+    var regex = /hologrid.*won/i;
+    if (regex.test(line)) {
+      console.log('---');
       console.log(line);
+    }
   });
 });
