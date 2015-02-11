@@ -31,7 +31,7 @@ emitter.start = function () {
     buffer.toString().split('\n').forEach(function (line) {
       
       // Check if a card is changing zones.
-      var zoneChangeRegex = /name=(.*) id=(\d+).*to (FRIENDLY|OPPOSING) (.*)(\(.*\))?$/;
+      var zoneChangeRegex = /name=(.*) id=(\d+).*to (FRIENDLY|OPPOSING) ([^\(]*)$/;
       if (zoneChangeRegex.test(line)) {
         var parts = zoneChangeRegex.exec(line);
         emitter.emit('zone-change', {
