@@ -16,7 +16,7 @@ ui.mainMenu.setItems([
 // Temporarily show the first item as disabled the first item.
 var firstItem = ui.mainMenu.list.items[0];
 firstItem.style.fg = '#ff0000';
-firstItem.content += ' (coming soon)';
+firstItem.content += ' (soon)';
 
 // The main program function.
 function run() {
@@ -31,6 +31,7 @@ function run() {
         // ui.deckBuilder.show();
         break;
       case 'start-tracking':
+        ui.tracker.show();
         break;
       case 'settings':
         // Temporarily do nothing.

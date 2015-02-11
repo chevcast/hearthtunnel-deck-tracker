@@ -4,10 +4,8 @@ var mainMenu = require('./mainMenu');
 module.exports = exports = {
   screen: screen,
   mainMenu: mainMenu,
-  /*
-   *deckBuilder: require('./deckBuilder'),
-   *tracker: require('./tracker'),
-   *settings: require('./settings'),
-   */
+  tracker: require('./tracker'),
+  //deckBuilder: require('./deckBuilder'),
+  //settings: require('./settings'),
   render: screen.render.bind(screen)
 };

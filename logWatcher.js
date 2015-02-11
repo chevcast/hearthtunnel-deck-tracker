@@ -2,6 +2,8 @@ var EventEmitter = require('events').EventEmitter;
 var fs = require('fs');
 var path = require('path');
 var os = require('os');
+
+// Determine the location of the log file.
 var logFile;
 if (/^win/.test(os.platform())) {
   var programFiles = 'Program Files';
@@ -13,10 +15,15 @@ if (/^win/.test(os.platform())) {
   logFile = path.join(process.env.HOME, 'Library', 'Logs', 'Unity', 'Player.log');
 }
 
+// The watcher is an event emitter so we can emit events based on what we parse in the log.
 var emitter = new EventEmitter();
 emitter.start = function () {
+
+  // Begin watching the Hearthstone log file.
   var fileSize = fs.statSync(logFile).size;
   var watcher = fs.watch(logFile, function (event, filename) {
+
+    // We're only going to read the portion of the file that we have not read so far.
     var newFileSize = fs.statSync(logFile).size;
     var sizeDiff = newFileSize - fileSize;
     if (sizeDiff <= 0) {
@@ -28,6 +35,8 @@ emitter.start = function () {
     fs.readSync(fileDescriptor, buffer, 0, sizeDiff, fileSize + 1);
     fs.closeSync(fileDescriptor);
     fileSize = newFileSize;
+
+    // Iterate over each line in the buffer.
     buffer.toString().split('\n').forEach(function (line) {
       
       // Check if a card is changing zones.
@@ -66,7 +75,12 @@ emitter.start = function () {
       }
 
     });
+
   });
+
+  // Return the close function so the watcher can be turned off.
   return watcher.close.bind(watcher);
 };
+
+// Set the entire module to our emitter.
 module.exports = emitter;

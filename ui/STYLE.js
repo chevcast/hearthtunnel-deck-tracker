@@ -3,7 +3,7 @@ module.exports = exports = function () {
     fg: '#ffffff',
     bg: '#111111',
     border: {
-      fg: '#ffffff',
+      fg: '#777777',
       bg: '#333333'
     },
     selected: {

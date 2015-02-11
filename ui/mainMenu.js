@@ -1,8 +1,7 @@
 var blessed = require('blessed');
 var extend = require('extend');
 var screen = require('./screen');
-var Container = require('./Container');
-var container = new Container();
+var container = new require('./Container')();
 var STYLE = require('./STYLE')();
 
 var list = blessed.list({
@@ -30,6 +29,7 @@ var list = blessed.list({
 });
 
 container.focus = list.focus.bind(list);
+container.on('resize', screen.render.bind(screen));
 
 var listItems = [];
 
