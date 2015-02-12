@@ -3,6 +3,7 @@ var extend = require('extend');
 var screen = require('./screen');
 var container = new require('./Container')();
 var STYLE = require('./STYLE')();
+var STATUS = require('../STATUS');
 
 var friendlyDeck = blessed.list({
   parent: container,
@@ -110,20 +111,37 @@ function setCards(cards) {
     var cards = meta[cardName];
     if (cards.length === 1) {
       var cardStatus = cards[0].status;
-      var fillerWidth = list.width - 4 - cardName.length - cardStatus.length;
+      var fillerWidth = Math.floor(list.width * .75) - cardName.length;
+      if (fillerWidth < 1) {
+        fillerWidth = 1;
+      }
       return cardName + new Array(fillerWidth).join('.') + cardStatus;
     }
-    var statusMeta = {
-      inDeck: 0,
-      inHand: 0,
-      inPlay: 0,
-      inSecret: 0,
-      inWeapon: 0,
-      inGraveyard: 0
-    };
-    // I left off here. See line 185 in legacy-tracker.js
+    var statusMeta = {};
+    cards.forEach(function (card) {
+      Object.keys(STATUS).forEach(function (key) {
+        if (card.status === STATUS[key]) {
+          if (statusMeta.hasOwnProperty(key)) {
+            statusMeta[key]++; 
+          } else {
+            statusMeta[key] = 1;
+          }
+        } 
+      });
+    });
+    var statusString = '';
+    Object.keys(statusMeta).forEach(function (key) {
+      var statusCount = statusMeta[key];
+      if (statusCount > 0) {
+        statusString += STATUS[key] + 'x' + statusCount + '\033[0m '; 
+      }
+    });
+    var fillerWidth = Math.floor(list.width * .75) - cardName.length;
+    if (fillerWidth < 1) {
+      fillerWidth = 1;
+    }
+    return cardName + new Array(fillerWidth).join('.') + statusString;
   });
-
 
   list.setItems(items);
   screen.render();
@@ -170,16 +188,10 @@ debug.log = function (line) {
   var currentScrollIndex = debug.getScroll();
   var originalScrollHeight = debug.getScrollHeight() - 1;
   debug.content += line + '\n';
-  if (debug.hasOwnProperty('timeoutId')) {
-    clearTimeout(debug.timeoutId);
-    delete debug.timeoutId;
+  if (currentScrollIndex === originalScrollHeight) {
+    debug.setScrollPerc(100);
   }
-  debug.timeoutId = setTimeout(function () {
-    screen.render();
-    if (currentScrollIndex === originalScrollHeight) {
-      debug.setScrollPerc(100);
-    }
-  }, 50);
+  screen.render();
 };
 // Detect if a debug flag was used.
 // If so, don't hide the debug box by default.
@@ -196,18 +208,35 @@ container.key('C-d', function () {
 var legend = blessed.list({
   parent: container,
   label: 'Legend',
-  style: STYLE,
+  style: extend(true, {}, STYLE, {
+    selected: {
+      fg: STYLE.fg,
+      bg: STYLE.bg
+    }
+  }),
   border: {
     type: 'bg',
     fg: STYLE.border.fg,
     bg: STYLE.border.bg
   },
+  padding: 1,
   top: 'center',
   left: 'center',
+  height: 10,
   mouse: false,
   input: false,
-  keys: false
+  keys: false,
+  interactive: false,
+  items: [
+    STATUS.inDeck + '\033[0m = In Deck',
+    STATUS.inHand + '\033[0m = In Hand',
+    STATUS.inPlay + '\033[0m = Active Minion',
+    STATUS.inSecret + '\033[0m = Active Secret',
+    STATUS.inWeapon + '\033[0m = Active Weapon',
+    STATUS.inGraveyard + '\033[0m = Used/Dead'
+  ]
 });
+legend._isList = false;
 legend.hide();
 
 container.key('l', function () {
@@ -218,14 +247,19 @@ container.key('l', function () {
 var deckSelector = blessed.list({
   parent: container,
   label: 'Select Your Deck',
-  style: STYLE,
+  style: extend(true, {}, STYLE, {
+    bg: STYLE.border.bg
+  }),
   border: {
-    type: 'bg',
+    type: 'line',
     fg: STYLE.border.fg,
     bg: STYLE.border.bg
   },
+  padding: 1,
+  align: 'center',
   top: 'center',
   left: 'center',
+  width: '75%',
   mouse: true,
   input: true,
   keys: true,
@@ -236,11 +270,13 @@ var setDeckSelectorItems = deckSelector.setItems.bind(deckSelector);
 deckSelector.setDecks = function (decks) {
   deckCache = decks;
   setDeckSelectorItems(decks);
+  deckSelector.height = decks.length + 4;
   screen.render();
 };
 deckSelector.onSelect = function (callback) {
   deckSelector.on('select', function (elem, index) {
-    callback(deckCache[index].toLowerCase().replace(/ /g, '-')); 
+    deckSelector.hide();
+    callback(deckCache[index]); 
   });
 };
 deckSelector.hide();
@@ -257,7 +293,7 @@ var info = blessed.box({
   bottom: 0,
   height: 1,
   align: 'center',
-  content: '[ Q=Quit, L=Legend ]'
+  content: '[ L=Legend, Q=Quit ]'
 });
 
 function calculateSizes() {
@@ -290,13 +326,16 @@ var hideContainer = container.hide.bind(container);
 container.hide = function () {
   legend.hide();
   deckSelector.hide();
+  delete friendlyDeck.cards;
+  delete opposingDeck.cards;
+  friendlyDeck.setItems([]);
+  opposingDeck.setItems([]);
   calculateSizes();
   hideContainer();
 };
 var showContainer = container.show.bind(container);
 container.show = function () {
   showContainer();
-  debug.content = '';
   calculateSizes();
 };
 

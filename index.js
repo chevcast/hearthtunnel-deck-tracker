@@ -26,9 +26,9 @@ ui.mainMenu.onSelect(function (item) {
       // ui.deckBuilder.show();
       break;
     case 'start-tracking':
+      ui.tracker.debug.content = '\n';
       ui.tracker.show();
       deckTracker.start();
-      ui.tracker.debug.log('Tracker started.');
       break;
     case 'settings':
       // Temporarily do nothing.
@@ -43,7 +43,10 @@ ui.mainMenu.onSelect(function (item) {
 
 // If at any time the user presses the Q key,
 // return to the main menu.
-ui.screen.key('q', ui.mainMenu.show.bind(ui.mainMenu));
+ui.screen.key('q', function () {
+  deckTracker.stop();
+  ui.mainMenu.show();
+});
 
 // Show the main menu.
 ui.mainMenu.show();

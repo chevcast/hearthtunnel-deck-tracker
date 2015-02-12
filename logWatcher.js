@@ -49,7 +49,6 @@ emitter.start = function () {
           team: parts[3],
           zone: parts[4]
         });
-        return;
       }
 
       // Check for players entering play.
@@ -60,7 +59,6 @@ emitter.start = function () {
           playerName: parts[1],
           team: parseInt(parts[2]) === 1 ? 'FRIENDLY' : 'OPPOSING'
         });
-        return;
       }
 
       // Check if the game is over.
@@ -71,16 +69,19 @@ emitter.start = function () {
           playerName: parts[1],
           status: parts[2]
         });
-        return;
       }
 
     });
 
   });
 
-  // Return the close function so the watcher can be turned off.
-  return watcher.close.bind(watcher);
+  emitter.stop = function () {
+    watcher.close();
+    emitter.stop = function () {};
+  };
 };
+
+emitter.stop = function () {};
 
 // Set the entire module to our emitter.
 module.exports = emitter;

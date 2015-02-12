@@ -11,6 +11,7 @@ var list = blessed.list({
   align: 'center',
   top: 'center',
   left: 'center',
+  width: '75%',
   interactive: false,
   keys: true,
   vi: true,
