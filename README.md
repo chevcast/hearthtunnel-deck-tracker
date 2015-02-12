@@ -20,4 +20,6 @@ Note: Hearthtunnel is still in beta. The deck builder feature is not yet complet
 
 4. Modify the data to reflect your deck. Note that the card names are case sensitive and must be identical to the card names in the game. The number to the right of each card is how many you have in your deck.
 
+The tracker will work for arena decks as well. Just build your arena deck like you normally would. Then before you start your first game, follow the steps above to add the deck to the list.
+
 Soon there will be a built-in deck builder that will make it infinitely easier to populate your decks. Until then, I apologize for the hassle.
