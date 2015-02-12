@@ -1,16 +1,18 @@
 {
-  "name": "hearthstone-scripts",
+  "name": "hstracker",
   "version": "0.0.1",
   "description": "Various scripts for interacting with Hearthstone and Twitch.",
   "main": "index.js",
   "dependencies": {
     "blessed": "0.0.44",
-    "blessed-contrib": "git://github.com/chevex/blessed-contrib#table-options",
     "extend": "^2.0.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "hstracker": "./bin/hstracker.js"
   },
   "keywords": [
     "hearthstone",
