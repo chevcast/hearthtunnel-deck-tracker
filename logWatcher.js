@@ -3,17 +3,24 @@ var fs = require('fs');
 var path = require('path');
 var os = require('os');
 
-// Determine the location of the log file.
-var logFile;
+// Determine the location of the config and log files.
+var configFile, logFile;
 if (/^win/.test(os.platform())) {
   var programFiles = 'Program Files';
   if (/64/.test(os.arch())) {
     programFiles += '(x86)';
   }
   logFile = path.join('C:', programFiles, 'Hearthstone', 'Hearthstone_Data', 'output_log.txt');
+  configFile = path.join(process.env.LOCALAPPDATA, 'Blizzard', 'Hearthstone', 'log.config');
 } else {
   logFile = path.join(process.env.HOME, 'Library', 'Logs', 'Unity', 'Player.log');
+  configFile = path.join(process.env.HOME, 'Library', 'Preferences', 'Blizzard', 'Hearthstone', 'log.config');
 }
+
+// Copy local config file to the correct location.
+// We're just gonna do this every time.
+var localConfigFile = path.join(__dirname, 'log.config');
+fs.createReadStream(localConfigFile).pipe(fs.createWriteStream(configFile));
 
 // The watcher is an event emitter so we can emit events based on what we parse in the log.
 var emitter = new EventEmitter();

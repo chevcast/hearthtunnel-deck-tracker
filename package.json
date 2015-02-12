@@ -1,10 +1,10 @@
 {
-  "name": "hstracker",
+  "name": "hearthtunnel",
   "version": "0.0.1",
-  "description": "Various scripts for interacting with Hearthstone and Twitch.",
+  "description": "Hearthstone deck tracker.",
   "main": "index.js",
   "dependencies": {
-    "blessed": "0.0.44",
+    "blessed": "0.0.45",
     "extend": "^2.0.0"
   },
   "devDependencies": {},
@@ -12,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "hstracker": "./bin/hstracker.js"
+    "hstracker": "./bin/hearthtunnel.js"
   },
   "keywords": [
     "hearthstone",
