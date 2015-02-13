@@ -74,8 +74,8 @@ logWatcher.on('zone-change', function (data) {
       if (data.cardId === card.id) {
         debug.log('Card is in the deck.');
         cardInDeck = true; 
+        break;
       }
-      break;
     }
   }
   switch (data.zone) {
