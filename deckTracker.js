@@ -1,5 +1,5 @@
 var ui = require('./ui');
-var logWatcher = require('./logWatcher');
+var logWatcher = require('hearthstone-log-watcher');
 var fs = require('fs');
 var path = require('path');
 var friendlyCards = [];
@@ -39,19 +39,21 @@ exports.start = function () {
   });
 }
 
-logWatcher.on('new-player', function (data) {
-  debug.log('New player detected.');
-  switch (data.team) {
-    case 'FRIENDLY':
-      var label = ui.tracker.friendlyDeck.label;
-      ui.tracker.friendlyDeck.setLabel(data.playerName + ' (' + label + ')');
-      debug.log('Setting friendly window title to "' + ui.tracker.friendlyDeck.label + '".');
-      break;
-    case 'OPPOSING':
-      ui.tracker.opposingDeck.setLabel(data.playerName);
-      debug.log('Setting opposing window title to "' + ui.tracker.friendlyDeck.label + '".');
-      break;
-  }
+logWatcher.on('game-start', function (players) {
+  debug.log('New match started.');
+  players.forEach(function (player) {
+    switch (player.team) {
+      case 'FRIENDLY':
+        var label = ui.tracker.friendlyDeck.label;
+        ui.tracker.friendlyDeck.setLabel(player.name + ' (' + label + ')');
+        debug.log('Setting friendly window title to "' + ui.tracker.friendlyDeck.label + '".');
+        break;
+      case 'OPPOSING':
+        ui.tracker.opposingDeck.setLabel(player.name);
+        debug.log('Setting opposing window title to "' + ui.tracker.friendlyDeck.label + '".');
+        break;
+    }
+  });
   ui.render();
   debug.log('-----');
 });
@@ -106,7 +108,7 @@ logWatcher.on('zone-change', function (data) {
   debug.log('-----');
 });
 
-logWatcher.on('game-over', function (data) {
+logWatcher.on('game-over', function (players) {
   debug.log('Game ended.');
   exports.stop();
   ui.tracker.container.hide();
