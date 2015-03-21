@@ -1,0 +1,27 @@
+{
+  "name": "hearthtunnel-deck-tracker",
+  "version": "1.0.0",
+  "description": "A node powered Hearthstone Deck Tracker.",
+  "main": "dist/index.html",
+  "window": {
+    "toolbar": true
+  },
+  "scripts": {
+    "start": "nw"
+  },
+  "author": "chevex",
+  "license": "ISC",
+  "dependencies": {
+    "hearthstone-log-watcher": "^1.2.0",
+    "lodash": "^3.5.0",
+    "nw": "^0.12.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-bower": "0.0.10",
+    "gulp-jade": "^1.0.0",
+    "gulp-livereload": "^3.8.0",
+    "gulp-stylus": "^2.0.1",
+    "node-webkit-builder": "^1.0.11"
+  }
+}

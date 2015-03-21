@@ -1,0 +1,17 @@
+doctype html
+html(data-ng-app="app")
+  head
+    link(href="./lib/bootstrap/dist/css/bootstrap-theme.css", rel="stylesheet")
+    link(href="./lib/bootstrap/dist/css/bootstrap.css", rel="stylesheet")
+    link(href="./css/app.css", rel="stylesheet")
+    script(src="http://localhost:35729/livereload.js")
+    script(src="./lib/jquery/dist/jquery.js")
+    script(src="./lib/angular/angular.js")
+    script.
+      var app = angular.module('app', []);
+      app.controller('sandbox', require('./js/controllers/sandbox.js'));
+  body(data-ng-controller="sandbox")
+    div.card-image(data-ng-repeat="card in cards")
+      div.text-center {{card.name}}
+      img(src="http://wow.zamimg.com/images/hearthstone/cards/enus/animated/{{card.id}}_premium.gif")
+      

@@ -1,0 +1,6 @@
+node_modules/
+dist/
+src/bower_components/
+release/
+cache/
+.DS_Store
