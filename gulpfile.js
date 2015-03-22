@@ -7,7 +7,7 @@ var NwBuilder = require('node-webkit-builder');
 var path = require('path');
 
 // The default task simply runs all the compile tasks.
-gulp.task('default', ['compile-html', 'compile-css', 'compile-js', 'compile-bower']);
+gulp.task('default', ['compile-html', 'compile-css', 'compile-js', 'compile-bower', 'transfer-data']);
 
 // Find all Jade templates and compile them into HTML.
 gulp.task('compile-html', function () {
@@ -48,6 +48,12 @@ gulp.task('compile-bower', function () {
     .pipe(gulp.dest('./dist/lib/'));
 });
 
+// Transfer all data files.
+gulp.task('transfer-data', function () {
+  // Do a straight copy of the data directory to dist.
+  gulp.src('./data/**/*').pipe(gulp.dest('./dist/data'));
+});
+
 // Run all compile tasks, start a livereload server, and add some watcher messages.
 gulp.task('watch', ['default'], function () {
   // Begin listening for livereload.
@@ -64,6 +70,7 @@ gulp.task('watch', ['default'], function () {
   gulp.watch('./src/css/*.styl', ['compile-css']).on('change', onChange);
   gulp.watch('./src/js/**/*.js', ['compile-js']).on('change', onChange);
   gulp.watch('./src/bower_components/**/*', ['compile-bower']).on('change', onChange);
+  gulp.watch('./data/**/*', ['transfer-data']);
 });
 
 // Run all compile tasks and then build executables for the application.

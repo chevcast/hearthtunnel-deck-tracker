@@ -1,7 +1,6 @@
 var fs = require('fs');
 var request = require('request');
 var imageUrl = 'http://wow.zamimg.com/images/hearthstone/cards/enus/original/{{cardId}}.png';
-var animatedImageUrl = 'http://wow.zamimg.com/images/hearthstone/cards/enus/animated/{{cardId}}_premium.gif';
 var cardSets = require('./data/all-sets.json');
 require('colors');
 
@@ -19,8 +18,7 @@ var recurse = function (cardId) {
   if (!cardId) return;
   console.log('Trying ' + cardId + '...');
   var uri = imageUrl.replace("{{cardId}}", cardId);
-  var goldUri = animatedImageUrl.replace("{{cardId}}", cardId);
-  request.head(goldUri, function(err, res, body){
+  request.head(uri, function(err, res, body){
     if (err) {
       console.error(err); 
       return;
@@ -37,7 +35,7 @@ var recurse = function (cardId) {
       console.log('Retrying ' + cardId + '...');
       recurse(cardId);
     }, 25000);
-    request(goldUri).pipe(fs.createWriteStream('./data/card-images/animated/' + cardId + '.gif'))
+    request(uri).pipe(fs.createWriteStream('./data/card-images/' + cardId + '.png'))
       .on('close', function () {
         if (!timedOut) {
           clearTimeout(timeoutId);
