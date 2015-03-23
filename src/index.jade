@@ -13,7 +13,6 @@ html(data-ng-app="app")
         delete global.require.cache[key];
       });
       var app = angular.module('app', []);
-      app.controller('sandbox', require('./js/controllers/sandbox.js'));
       app.filter('collectible', require('./js/filters/collectible.js'));
-  body(data-ng-controller="sandbox")
+  body()
     img(src="./imgs/GVG_030.png")

@@ -8,10 +8,18 @@ var gulpJsonEditor = require('gulp-json-editor');
 var gulpRename = require('gulp-rename');
 var gulpUglify = require('gulp-uglify');
 var gulpMinifyCss = require('gulp-minify-css');
+var gulpGm = require('gulp-gm');
 var path = require('path');
 
 // The default task simply runs all the compile tasks.
-gulp.task('default', ['compile-html', 'compile-css', 'compile-js', 'compile-bower', 'transform-data']);
+gulp.task('default', [
+  'compile-html',
+  'compile-css',
+  'compile-js',
+  'compile-bower',
+  'transform-card-data',
+  'crop-card-images'
+]);
 
 // Find all Jade templates and compile them into HTML.
 gulp.task('compile-html', function () {
@@ -54,14 +62,21 @@ gulp.task('compile-bower', function () {
     .pipe(gulp.dest('./dist/lib/'));
 });
 
-// Transfer all data files.
-gulp.task('transform-data', function () {
-  // Do a straight copy of the data directory to dist.
-  //gulp.src('./data/**/*').pipe(gulp.dest('./dist/data'));
+// Move card images and generate thumbnails.
+gulp.task('crop-card-images', function () {
+  // Copy all card images.
+  gulp.src('./data/card-images/*').pipe(gulp.dest('./dist/imgs/cards'));
+  // Crop and copy card image thumbnails.
+  gulp.src('./data/card-images/*')
+    .pipe(gulpGm(function (gmFile) {
+      // API: gmFile.crop(width, height, x, y)
+      return gmFile.crop(120, 40, 80, 110);
+    }, { imageMagick: true }))
+    .pipe(gulp.dest('./dist/imgs/cards/thumbnails'));
+});
 
-  // Move card images to asset directory.
-  gulp.src('./data/card-images/*').pipe(gulp.dest('./dist/imgs'));
-
+// Transform card data into a flat array.
+gulp.task('transform-card-data', function () {
   // Transform card data into a flat array.
   gulp.src('./data/all-sets.json').pipe(gulpJsonEditor(function (cardSets) {
     var cards = [];
@@ -70,7 +85,6 @@ gulp.task('transform-data', function () {
     });
     return cards;
   })).pipe(gulpRename('cards.json')).pipe(gulp.dest('./dist/data'));;
-
 });
 
 // Run all compile tasks, start a livereload server, and add some watcher messages.
@@ -89,7 +103,8 @@ gulp.task('watch', ['default'], function () {
   gulp.watch('./src/css/*.styl', ['compile-css']).on('change', onChange);
   gulp.watch('./src/js/**/*.js', ['compile-js']).on('change', onChange);
   gulp.watch('./src/bower_components/**/*', ['compile-bower']).on('change', onChange);
-  gulp.watch('./data/**/*', ['transform-data']).on('change', onChange);;
+  gulp.watch('./data/all-sets.json', ['transform-card-data']).on('change', onChange);;
+  gulp.watch('./data/card-images/*', ['crop-card-images']).on('change', onChange);;
 });
 
 // Run all compile tasks and then build executables for the application.
