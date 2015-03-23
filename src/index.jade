@@ -8,9 +8,12 @@ html(data-ng-app="app")
     script(src="./lib/jquery/dist/jquery.js")
     script(src="./lib/angular/angular.js")
     script.
+      // Clear module cache so livereload works with required modules.
+      Object.keys(global.require.cache).forEach(function (key) {
+        delete global.require.cache[key];
+      });
       var app = angular.module('app', []);
       app.controller('sandbox', require('./js/controllers/sandbox.js'));
+      app.filter('collectible', require('./js/filters/collectible.js'));
   body(data-ng-controller="sandbox")
-    div.card-image(data-ng-repeat="card in cards")
-      div.text-center {{card.name}}
-      img(src="./data/card-images/{{card.id}}.png")
+    img(src="./imgs/GVG_030.png")
