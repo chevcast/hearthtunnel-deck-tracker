@@ -1,0 +1,14 @@
+div#deck-builder
+  div(
+    data-deck-cover,
+    data-deck-class="{{deck.deckClass}}",
+    data-deck-name="{{deck.name}}"
+    data-ng-if="deck"
+  )
+  ul#cards
+    li(data-ng-repeat="card in cards")
+      div(
+        data-card-thumbnail,
+        data-card-id="{{card.id}}",
+        data-card-count="{{card.count}}"
+      )

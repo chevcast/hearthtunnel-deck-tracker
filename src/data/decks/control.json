@@ -1,0 +1,25 @@
+{
+  "name": "Control",
+  "deckClass": "Warrior",
+  "cards": {
+    "Power Overwhelming": 1,
+    "Soulfire": 1,
+    "Abusive Sergeant": 2,
+    "Flame Imp": 1,
+    "Leper Gnome": 2,
+    "Voidwalker": 2,
+    "Dire Wolf Alpha": 2,
+    "Haunted Creeper": 2,
+    "Ironbeak Owl": 2,
+    "Knife Juggler": 2,
+    "Nerubian Egg": 2,
+    "Arcane Golem": 1,
+    "Harvest Golem": 2,
+    "Imp-losion": 2,
+    "Dark Iron Dwarf": 1,
+    "Defender of Argus": 2,
+    "Doomguard": 1,
+    "Loatheb": 1,
+    "Argent Commander": 1
+  }
+}

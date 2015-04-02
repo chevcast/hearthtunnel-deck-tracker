@@ -1,0 +1,15 @@
+div#decks
+  ul#decks-list
+    li(data-ng-repeat="deck in decks")
+      div(
+        data-deck-cover,
+        data-deck-class="{{deck.deckClass}}",
+        data-deck-name="{{deck.name}}"
+        data-interactive="true"
+        data-ng-click="go('/deck-tracker/{{deck.name}}')"
+        title="Select {{deck.name}} Deck"
+      )
+  span.new-deck.glyphicon.glyphicon-plus(
+    data-ng-click="go('/deck-builder/new')",
+    title="Add New Deck"
+  )
