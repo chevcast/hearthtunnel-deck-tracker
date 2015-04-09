@@ -1,10 +1,12 @@
 div#deck-builder
-  div(
-    data-deck-cover,
-    data-deck-class="{{deck.deckClass}}",
-    data-deck-name="{{deck.name}}"
-    data-ng-if="deck"
-  )
+  div(style="position: relative;")
+    div(
+      data-deck-cover,
+      data-deck-class="{{deck.deckClass}}",
+      data-deck-name="{{deck.name}}"
+      data-ng-if="deck"
+    )
+    span(style="position: absolute; bottom: 3px; right: 20px;") {{totalCards}} cards
   ul#cards
     li(data-ng-repeat="card in cards")
       div(

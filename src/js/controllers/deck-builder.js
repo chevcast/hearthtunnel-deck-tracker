@@ -10,10 +10,13 @@ module.exports = function ($rootScope, $scope, $routeParams, utils) {
     deckFile = $routeParams.deckName.toLowerCase() + '.json';
     deckPath = path.join(__dirname, '..', '..', 'data', 'decks', deckFile);
     $scope.deck = require(deckPath);
+    $scope.totalCards = 0;
     $scope.cards = Object.keys($scope.deck.cards).map(function (cardId) {
+      var count = $scope.deck.cards[cardId];
+      $scope.totalCards += count;
       return {
         id: cardId,
-        count: $scope.deck.cards[cardId]
+        count: count
       }
     });
   }

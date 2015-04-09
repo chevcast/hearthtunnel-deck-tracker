@@ -99,7 +99,11 @@ gulp.task('process-data', function () {
     Object.keys(cardSets).forEach(function (setName) {
       cards = cards.concat(cardSets[setName]);
     });
-    return cards;
+    var cardMap = {};
+    cards.forEach(function (card) {
+      cardMap[card.id] = card;
+    });
+    return cardMap;
   })).pipe(gulpRename('cards.json')).pipe(gulp.dest('./build/data'));;
 
   // Move template decks.
