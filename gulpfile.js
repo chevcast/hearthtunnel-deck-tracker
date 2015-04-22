@@ -36,7 +36,7 @@ gulp.task('compile-html', function () {
     .pipe(gulp.dest('./build/templates'))
     .pipe(livereload());
   
-  mergeStreams(indexTemplate, otherTemplates);
+  return mergeStreams(indexTemplate, otherTemplates);
 });
 
 // Compile all Stylus files into proper CSS files.
