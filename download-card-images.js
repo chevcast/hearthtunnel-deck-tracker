@@ -1,7 +1,7 @@
 var fs = require('fs');
 var request = require('request');
 var imageUrl = 'http://wow.zamimg.com/images/hearthstone/cards/enus/original/{{cardId}}.png';
-var cardSets = require('./data/all-sets.json');
+var cardSets = require('./src/data/all-sets.json');
 require('colors');
 
 // Build a complete array of card IDs from the Hearthstone JSON data.
@@ -35,7 +35,7 @@ var recurse = function (cardId) {
       console.log('Retrying ' + cardId + '...');
       recurse(cardId);
     }, 25000);
-    request(uri).pipe(fs.createWriteStream('./data/card-images/' + cardId + '.png'))
+    request(uri).pipe(fs.createWriteStream('./src/imgs/cards/' + cardId + '.png'))
       .on('close', function () {
         if (!timedOut) {
           clearTimeout(timeoutId);

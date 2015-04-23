@@ -80,7 +80,7 @@ gulp.task('process-images', function () {
     .pipe(livereload());
 
   // Crop card images to generate decklist thumbnails.
-  var cardThumbnails = gulp.src('./src/imgs/card-images/*')
+  var cardThumbnails = gulp.src('./src/imgs/cards/*')
     .pipe(gulpGm(function (gmFile) {
       // API: gmFile.crop(width, height, x, y)
       return gmFile.crop(120, 40, 80, 110);
