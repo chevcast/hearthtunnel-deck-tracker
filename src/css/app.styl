@@ -170,7 +170,7 @@ div.card-thumbnail
     border-radius: 5px 
     height: 100%
 
-.glyphicon
+.glyphbutton.glyphicon
   color: darken(secondarycolor, 50%)
   &:hover
     color: secondarycolor
@@ -197,14 +197,32 @@ div#decks
     cursor: pointer
 
 div#deck-builder
-  padding: 15px
+  padding: 10px
   text-align: center
   height: 100%
+  span.card-count
+    position: absolute
+    bottom: 3px
+    right: 20px
+  input#cardField
+    outline: 0
+    width: 180px
+    padding: 5px
+    background-color: #140433
+    border: solid 1px darken(forecolor, 25%)
+    border-radius: 5px
+    margin: 20px 0 10px 0
+    font-size: smaller
+  button#addCard
+    color: backcolor
+    padding: 5px
+    text-align: center
+    line-height: 100%
+    margin-left: 5px
   ul#cards
     list-style: none
     text-align: center
     padding: 0
-    margin: 15px 0 0 0
     height: calc(100% - 70px)
     overflow: auto
     li

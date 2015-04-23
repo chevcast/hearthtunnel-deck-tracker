@@ -8,9 +8,6 @@ html(data-ng-app="app")
     script(src="http://localhost:35729/livereload.js")
     script(src="./lib/jquery/dist/jquery.js")
     script(src="./lib/angular/angular.js")
-    script(src="./lib/typeahead.js/dist/bloodhound.js")
-    script(src="./lib/typeahead.js/dist/typeahead.bundle.js")
-    script(src="./lib/angular-typeahead/angular-typeahead.js")
     script(src="./lib/angular-route/angular-route.js")
     script(src="./lib/angular-animate/angular-animate.js")
     script.
@@ -27,7 +24,7 @@ html(data-ng-app="app")
       });
 
       // Delcare our Angular app and relevant components.
-      var app = angular.module('app', ['ngRoute', 'ngAnimate', 'siyfion.sfTypeahead']);
+      var app = angular.module('app', ['ngRoute', 'ngAnimate']);
       app.factory('mainWindow', function () {
         return mainWindow;
       });
@@ -73,8 +70,8 @@ html(data-ng-app="app")
     div.drag-fix-top
     div.title-bar.animated {{title}}
       div#app-controls
-        span.glyphicon.glyphicon-minus#minimize-app(data-ng-click="minimizeApp()")
-        span.glyphicon.glyphicon-remove#close-app(data-ng-click="closeApp()")
+        span.glyphbutton.glyphicon.glyphicon-minus#minimize-app(data-ng-click="minimizeApp()")
+        span.glyphbutton.glyphicon.glyphicon-remove#close-app(data-ng-click="closeApp()")
     div.content(data-ng-view)
     div.drag-fix-bottom
     

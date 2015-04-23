@@ -1,7 +1,7 @@
 var path = require('path');
 var fs = require('fs');
 
-module.exports = function ($rootScope, $scope, $routeParams, utils) {
+module.exports = function ($rootScope, $scope, $routeParams, utils, cards) {
   $rootScope.title = "Deck Builder";
   var mode = $routeParams.mode.toLowerCase();
   var deckName = $routeParams.deckName;
@@ -20,6 +20,12 @@ module.exports = function ($rootScope, $scope, $routeParams, utils) {
       }
     });
   }
+  global.Bloodhound = window.Bloodhound;
+  $scope.autofillCards = new window.Bloodhound({
+    datumTokenizer: function (d) { return window.Bloodhound.tokenizers.whitespace(d.num); },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: cards
+  });
   switch (mode) {
     case 'delete':
       fs.unlink(deckPath);

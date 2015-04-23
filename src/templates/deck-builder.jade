@@ -6,7 +6,13 @@ div#deck-builder
       data-deck-name="{{deck.name}}"
       data-ng-if="deck"
     )
-    span(style="position: absolute; bottom: 3px; right: 20px;") {{totalCards}} cards
+    span.card-count(style="position: absolute; bottom: 3px; right: 20px;") {{totalCards}} cards
+  input#cardField(
+    type="text",
+    placeholder="Enter card name..."
+  )
+  button#addCard.btn.btn-success(title="Add Card")
+    span.glyphicon.glyphicon-plus
   ul#cards
     li(data-ng-repeat="card in cards")
       div(

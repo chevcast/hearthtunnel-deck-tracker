@@ -42,7 +42,7 @@ gulp.task('compile-html', function () {
 // Compile all Stylus files into proper CSS files.
 gulp.task('compile-css', function () {
   // Compile all Stylus files.
-  var styles = gulp.src('./src/css/*.styl')
+  var styles = gulp.src('./src/css/**/*.styl')
     .pipe(gulpStylus())
     .pipe(gulpMinifyCss())
     .pipe(gulp.dest('./build/css'))
