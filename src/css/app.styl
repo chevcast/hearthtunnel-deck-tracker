@@ -222,6 +222,7 @@ div#deck-builder
       text-align: center
       line-height: 100%
       margin-left: 5px
+      margin-top: 5px
   ul#cards
     list-style: none
     text-align: center
@@ -246,10 +247,19 @@ div#confirm
   background-color: backcolor
   width: 180px
   border-radius: 10px
-  padding: 10px
   border: solid 1px darken(forecolor, 25%)
   font-size: smaller
 .tt-hint
   color: darken(forecolor, 50%)
 .tt-suggestion
-  color: secondarycolor
+  color: forecolor
+  padding: 3px
+  p
+    margin: 0
+  &:first-child
+    border-radius: 10px 10px 0 0
+  &:last-child
+    border-radius: 0 0 10px 10px
+.tt-cursor
+  color: backcolor
+  background-color: forecolor

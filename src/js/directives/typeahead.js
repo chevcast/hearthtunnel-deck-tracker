@@ -1,4 +1,9 @@
 module.exports = function () {
+  var cardsEngine = new window.Bloodhound({
+    local: cards,
+    queryTokenizer: window.Bloodhound.tokenizers.whitespace,
+    datumTokenizer: window.Bloodhound.tokenizers.whitespace
+  });
   return {
     restrict: 'EA',
     controller: function ($scope, $element, cards) {
@@ -7,13 +12,7 @@ module.exports = function () {
       }, {
         name: 'collectible-cards',
         displayKey: 'name',
-        source: function (query, cb) {
-          $scope.$apply(function () {
-            if (query.toLowerCase() === 'knife') {
-              cb([cards['NEW1_019'], cards['BRM_002']]);
-            } 
-          });
-        }
+        source: cardsEngine
       });
     }
   }
