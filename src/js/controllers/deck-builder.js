@@ -11,21 +11,17 @@ module.exports = function ($rootScope, $scope, $routeParams, utils, cards) {
     deckPath = path.join(__dirname, '..', '..', 'data', 'decks', deckFile);
     $scope.deck = require(deckPath);
     $scope.totalCards = 0;
-    $scope.cards = Object.keys($scope.deck.cards).map(function (cardId) {
-      var count = $scope.deck.cards[cardId];
-      $scope.totalCards += count;
-      return {
-        id: cardId,
-        count: count
-      }
+    $scope.$watch('deck.cards', function () {
+      $scope.cards = Object.keys($scope.deck.cards).map(function (cardId) {
+        var count = $scope.deck.cards[cardId];
+        $scope.totalCards += count;
+        return {
+          id: cardId,
+          count: count
+        }
+      });
     });
   }
-  global.Bloodhound = window.Bloodhound;
-  $scope.autofillCards = new window.Bloodhound({
-    datumTokenizer: function (d) { return window.Bloodhound.tokenizers.whitespace(d.num); },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    local: cards
-  });
   switch (mode) {
     case 'delete':
       fs.unlink(deckPath);

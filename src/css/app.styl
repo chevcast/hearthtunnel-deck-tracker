@@ -169,6 +169,16 @@ div.card-thumbnail
     opacity: .5
     border-radius: 5px 
     height: 100%
+  span.count
+    position: absolute
+    right: 0
+    height: 40px
+    padding: 5px
+    border-radius: 0 5px 5px 0
+    background-color: backcolor
+    color: #ff0
+    text-align: center
+    line-height: 30px
 
 .glyphbutton.glyphicon
   color: darken(secondarycolor, 50%)
@@ -242,7 +252,7 @@ div#confirm
   button.btn.btn-success
     margin-right: 25px
 
-.tt-dropdown-menu
+.tt-menu
   text-align: left
   background-color: backcolor
   width: 180px
@@ -260,6 +270,8 @@ div#confirm
     border-radius: 10px 10px 0 0
   &:last-child
     border-radius: 0 0 10px 10px
-.tt-cursor
+  &:only-child
+    border-radius: 10px
+.tt-cursor, .tt-suggestion:hover
   color: backcolor
   background-color: forecolor

@@ -4,3 +4,4 @@ div.card-thumbnail(data-ng-class="{ interactive: interactive }")
     data-ng-class="{ interactive: interactive }"
   )
   span.name.pull-left {{card.name}}
+  span.count(ng-show="cardCount > 1") {{cardCount}}

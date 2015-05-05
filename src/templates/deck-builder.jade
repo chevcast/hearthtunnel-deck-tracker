@@ -11,7 +11,8 @@ div#deck-builder
     input#cardField(
       type="text",
       placeholder="Enter card name...",
-      data-typeahead
+      data-typeahead,
+      data-add-card="addCard($card)"
     )
     button#addCard.btn.btn-success(title="Add Card")
       span.glyphicon.glyphicon-plus
