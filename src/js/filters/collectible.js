@@ -4,7 +4,7 @@ module.exports = function ($filter) {
   var orderBy = $filter('orderBy');
   return function (cards) {
     var filteredCards = _.filter(cards, function (card) {
-      return card.collectible && _.contains(['Minion', 'Spell'], card.type);
+      return card.collectible && _.contains(['Minion', 'Spell', 'Weapon'], card.type);
     });
     var typeSort = function (card) {
       var typePriority = {

@@ -1,16 +1,16 @@
-var gulp = require('gulp');
-var gulpJade = require('gulp-jade');
-var gulpStylus = require('gulp-stylus');
-var gulpBower = require('gulp-bower');
-var livereload = require('gulp-livereload');
-var NwBuilder = require('node-webkit-builder');
-var gulpJsonEditor = require('gulp-json-editor');
-var gulpRename = require('gulp-rename');
-var gulpUglify = require('gulp-uglify');
-var gulpMinifyCss = require('gulp-minify-css');
-var gulpGm = require('gulp-gm');
-var mergeStreams = require('merge-stream');
 var path = require('path');
+var gulp = require('gulp');
+gulp.jade = require('gulp-jade');
+gulp.stylus = require('gulp-stylus');
+gulp.bower = require('gulp-bower');
+gulp.livereload = require('gulp-livereload');
+gulp.nwBuilder = require('node-webkit-builder');
+gulp.jsonEditor = require('gulp-json-editor');
+gulp.rename = require('gulp-rename');
+gulp.uglify = require('gulp-uglify');
+gulp.minifyCss = require('gulp-minify-css');
+gulp.gm = require('gulp-gm');
+gulp.mergeStreams = require('merge-stream');
 
 // The default task simply runs all the compile tasks.
 gulp.task('default', [
@@ -26,27 +26,27 @@ gulp.task('default', [
 gulp.task('compile-html', function () {
   // Compile the index file.
   var indexTemplate = gulp.src('./src/index.jade')
-    .pipe(gulpJade())
+    .pipe(gulp.jade())
     .pipe(gulp.dest('./build'))
-    .pipe(livereload());
+    .pipe(gulp.livereload());
 
   // Compile all other templates.
   var otherTemplates = gulp.src('./src/templates/**/*.jade')
-    .pipe(gulpJade())
+    .pipe(gulp.jade())
     .pipe(gulp.dest('./build/templates'))
-    .pipe(livereload());
+    .pipe(gulp.livereload());
   
-  return mergeStreams(indexTemplate, otherTemplates);
+  return gulp.mergeStreams(indexTemplate, otherTemplates);
 });
 
 // Compile all Stylus files into proper CSS files.
 gulp.task('compile-css', function () {
   // Compile all Stylus files.
   var styles = gulp.src('./src/css/**/*.styl')
-    .pipe(gulpStylus())
-    .pipe(gulpMinifyCss())
+    .pipe(gulp.stylus())
+    .pipe(gulp.minifyCss())
     .pipe(gulp.dest('./build/css'))
-    .pipe(livereload());
+    .pipe(gulp.livereload());
 
   return styles;
 });
@@ -55,9 +55,9 @@ gulp.task('compile-css', function () {
 gulp.task('compile-js', function () {
   // Deploy all JavaScript files.
   var js = gulp.src('./src/js/**/*.js')
-    //.pipe(gulpUglify({mangle:false}))
+    //.pipe(gulp.uglify({mangle:false}))
     .pipe(gulp.dest('./build/js'))
-    .pipe(livereload());
+    .pipe(gulp.livereload());
 
   return js;
 });
@@ -65,9 +65,9 @@ gulp.task('compile-js', function () {
 // Move all bower libs to the built libs directory.
 gulp.task('compile-bower', function () {
   // Deploy all bower dependencies.
-  var libs = gulpBower('./src/bower_components')
+  var libs = gulp.bower('./src/bower_components')
     .pipe(gulp.dest('./build/lib/'))
-    .pipe(livereload());
+    .pipe(gulp.livereload());
 
   return libs;
 });
@@ -77,24 +77,24 @@ gulp.task('process-images', function () {
   // Copy all source images.
   var images = gulp.src('./src/imgs/**/*')
     .pipe(gulp.dest('./build/imgs/'))
-    .pipe(livereload());
+    .pipe(gulp.livereload());
 
   // Crop card images to generate decklist thumbnails.
   var cardThumbnails = gulp.src('./src/imgs/cards/*')
-    .pipe(gulpGm(function (gmFile) {
+    .pipe(gulp.gm(function (gmFile) {
       // API: gmFile.crop(width, height, x, y)
       return gmFile.crop(120, 40, 80, 110);
     }, { imageMagick: true }))
     .pipe(gulp.dest('./build/imgs/cards/thumbnails'))
-    .pipe(livereload());
+    .pipe(gulp.livereload());
 
-  return mergeStreams(images, cardThumbnails);
+  return gulp.mergeStreams(images, cardThumbnails);
 });
 
 // Transform card data and move template decks.
 gulp.task('process-data', function () {
   // Transform card data into a flat array.
-  var cardData = gulp.src('./src/data/all-sets.json').pipe(gulpJsonEditor(function (cardSets) {
+  var cardData = gulp.src('./src/data/all-sets.json').pipe(gulp.jsonEditor(function (cardSets) {
     var cards = [];
     Object.keys(cardSets).forEach(function (setName) {
       cards = cards.concat(cardSets[setName]);
@@ -104,14 +104,14 @@ gulp.task('process-data', function () {
       cardMap[card.id] = card;
     });
     return cardMap;
-  })).pipe(gulpRename('cards.json')).pipe(gulp.dest('./build/data'));;
+  })).pipe(gulp.rename('cards.json')).pipe(gulp.dest('./build/data'));;
 
   // Move template decks.
   var defaultDecks = gulp.src('./src/data/decks/*')
     .pipe(gulp.dest('./build/data/decks'))
-    .pipe(livereload());
+    .pipe(gulp.livereload());
 
-  return mergeStreams(cardData, defaultDecks);
+  return gulp.mergeStreams(cardData, defaultDecks);
 });
 
 // Run all compile tasks, start a livereload server, and add some watcher messages.
@@ -131,7 +131,7 @@ gulp.task('watch', ['default'], function () {
   gulp.watch('./src/imgs/**/*', ['process-images']).on('change', onChange);;
 
   // Start livereload server to wait for piped filenames.
-  livereload.listen({ basePath: './build' });
+  gulp.livereload.listen({ basePath: './build' });
 });
 
 // Run all compile tasks and then build executables for the application.

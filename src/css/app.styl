@@ -40,6 +40,23 @@ body
   overflow: hidden
   -webkit-user-select: none
 
+#spinner
+  position: absolute
+  width: 100%
+  height: 100%
+  text-align: center
+  #overlay
+    position: absolute
+    width: 100%
+    height: 100%
+    opacity: .75
+    background-color: backcolor
+  img
+    position: relative
+    z-index: 10
+    margin-top: 45%
+    opacity: 1
+
 div.title-bar
   position: relative
   -webkit-app-region: drag
@@ -124,11 +141,16 @@ div.deck-cover
         &:hover
           color: #ff0
   span.name
+    text-align: left
     position: absolute
-    bottom: 3px
+    bottom: 2px
     left: 10px
-    font-size: 20px
+    font-size: 13px
     line-height: 25px
+    width: 125px
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   img.cover
     border-radius: 10px
     width: 100%
@@ -156,29 +178,40 @@ div.card-thumbnail
   border: solid 1px darken(secondarycolor, 50%)
   width: 215px
   color: darken(secondarycolor, 15%)
-  height: 40px
+  height: 30px
   text-align: left
-  overflow: hidden
+  font-size: smaller
   span.name
     position: absolute
-    line-height: 40px
-    font-size: 14px
-    left: 10px
+    line-height: 30px
+    left: 20px
     text-shadow: 2px 2px backcolor
   img.card
     opacity: .5
     border-radius: 5px 
     height: 100%
+  span.mana
+    position: absolute
+    left: -7px
+    top: 5px
+    height: 20px
+    width: 20px
+    border-radius: 50%
+    background-color: #3772e6
+    color: #fff
+    text-align: center
+    line-height: 22.5px
   span.count
     position: absolute
     right: 0
-    height: 40px
+    top: 0
+    height: 28px
     padding: 5px
     border-radius: 0 5px 5px 0
     background-color: backcolor
     color: #ff0
     text-align: center
-    line-height: 30px
+    line-height: 20px
 
 .glyphbutton.glyphicon
   color: darken(secondarycolor, 50%)
@@ -205,18 +238,72 @@ div#decks
     text-shadow: 1px 1px backcolor
     font-size: 35px
     cursor: pointer
+    &:hover
+      color: #fff
+
+div#new-deck
+  height: 100%
+  padding: 15px
+  input#deck-name
+    padding: 5px
+    font-size: smaller
+    background-color: backcolor
+    color: forecolor
+    border: solid 1px forecolor
+    border-radius: 5px
+    display: block
+    margin: 0 auto 15px auto
+  ul#class-list
+    height: calc(100% - 85px)
+    overflow: auto
+    list-style: none
+    text-align: center
+    padding: 0
+    margin: 0 0 10px 0
+    li
+      margin-bottom: 5px
+      cursor: pointer
+      opacity: .75
+      &:hover
+        opacity: 1
+  button#cancel
+    display: block
+    margin: auto
 
 div#deck-builder
   padding: 10px
   text-align: center
   height: 100%
   position: relative
+  button.btn-success
+    margin-right: 10px
   span.card-count
     position: absolute
     bottom: 3px
     right: 20px
+  input#deckName
+    outline: none
+    position: absolute
+    left: 16px
+    bottom: 1px
+    border: none
+    width: 135px
+    padding: 5px
+    background-color: #000
+    color: forecolor
+    border-radius: 0 10px 0 10px
+  div#deckCover
+   position: relative 
+   span.card-count
+     font-size: smaller
+     position: absolute
+     bottom: 2px
+     right: 16px
+     background-color: #000
+     padding: 5px
+     border-radius: 10px 0 10px 0 
   div#add
-    margin: 20px 0 10px 0
+    margin: 10px 0 10px 0
     position: relative
     input
       outline: 0
@@ -233,16 +320,37 @@ div#deck-builder
       line-height: 100%
       margin-left: 5px
       margin-top: 5px
+      &[disabled]
+        background-color: darken(secondarycolor, 50%)
+        border-color darken(secondarycolor, 50%)
   ul#cards
     list-style: none
     text-align: center
-    padding: 0
-    height: calc(100% - 70px)
+    padding: 10px
+    height: calc(100% - 165px)
     overflow: auto
+    background-color: #000
+    border: solid 1px darken(forecolor, 25%)
     li
       margin: 0
       padding: 0
-      height: 41px
+      height: 32px
+      position: relative
+      div#removeOverlay
+        display: none
+      &:hover
+        div#removeOverlay
+          display: block
+          cursor: no-drop
+          position: absolute
+          top: 0
+          left: 0
+          z-index: 10
+          background-color: #f00
+          opacity: .35
+          height: 100%
+          width: 100%
+          border-radius: 5px
 
 div#confirm
   padding: 15px
@@ -264,6 +372,7 @@ div#confirm
 .tt-suggestion
   color: forecolor
   padding: 3px
+  cursor: pointer
   p
     margin: 0
   &:first-child

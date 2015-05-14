@@ -5,6 +5,7 @@ module.exports = function () {
     scope: {
       deckClass: '@',
       deckName: '@',
+      deckFile: '@',
       interactive: '@'
     },
     templateUrl: './templates/directives/deck-cover.html',

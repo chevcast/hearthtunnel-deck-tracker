@@ -16,4 +16,5 @@ module.exports = function ($rootScope, $scope, mainWindow) {
       mainWindow.closeDevTools();
     }
   };
+  $rootScope.loading = false;
 };

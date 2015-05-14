@@ -49,6 +49,7 @@ html(data-ng-app="app")
       app.controller('main', require('./js/controllers/main.js'));
       app.controller('confirm', require('./js/controllers/confirm.js'));
       app.controller('decks', require('./js/controllers/decks.js'));
+      app.controller('newDeck', require('./js/controllers/new-deck.js'));
       app.controller('deckBuilder', require('./js/controllers/deck-builder.js'));
       app.controller('deckTracker', require('./js/controllers/deck-tracker.js'));
 
@@ -63,15 +64,15 @@ html(data-ng-app="app")
             templateUrl: './templates/confirm.html',
             controller: 'confirm'
           })
-          .when('/deck-builder/:mode', {
+          .when('/new-deck', {
+            templateUrl: './templates/new-deck.html',
+            controller: 'newDeck'
+          })
+          .when('/deck-builder/:mode/:deckFile', {
             templateUrl: './templates/deck-builder.html',
             controller: 'deckBuilder'
           })
-          .when('/deck-builder/:mode/:deckName', {
-            templateUrl: './templates/deck-builder.html',
-            controller: 'deckBuilder'
-          })
-          .when('/deck-tracker/:deckName', {
+          .when('/deck-tracker/:deckFile', {
             templateUrl: './templates/deck-tracker.html',
             controller: 'deckTracker'
           })
@@ -86,5 +87,9 @@ html(data-ng-app="app")
         span.glyphbutton.glyphicon.glyphicon-minus#minimize-app(data-ng-click="minimizeApp()")
         span.glyphbutton.glyphicon.glyphicon-remove#close-app(data-ng-click="closeApp()")
     div.content(data-ng-view)
+    div#spinner(data-ng-show="loading === true")
+      div#overlay
+      img(src="./imgs/spinner.gif")
+      h1 LOADING = {{loading}}
     div.drag-fix-bottom
     

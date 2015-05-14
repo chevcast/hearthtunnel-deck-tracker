@@ -1,11 +1,11 @@
 div.deck-cover(data-ng-class="{ interactive: interactive }")
   div.controls
     span.delete-deck.glyphicon.glyphicon-remove(
-      data-ng-click="go('/deck-builder/delete/' + deckName, 'Are you sure you want to delete your ' + deckName + ' ' + deckClass + ' deck?'); $event.stopPropagation();",
+      data-ng-click="go('/deck-builder/delete/' + deckFile, 'Are you sure you want to delete your ' + deckName + ' ' + deckClass + ' deck?'); $event.stopPropagation();",
       title="Delete {{deckName}} Deck"
     )
     span.edit-deck.glyphicon.glyphicon-edit(
-      data-ng-click="go('/deck-builder/edit/' + deckName); $event.stopPropagation();",
+      data-ng-click="go('/deck-builder/edit/' + deckFile); $event.stopPropagation();",
       title="Edit {{deckName}} Deck"
     )
   img.cover(

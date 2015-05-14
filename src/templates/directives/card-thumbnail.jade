@@ -3,5 +3,6 @@ div.card-thumbnail(data-ng-class="{ interactive: interactive }")
     data-ng-src="./imgs/cards/thumbnails/{{card.id}}.png",
     data-ng-class="{ interactive: interactive }"
   )
+  span.mana {{card.cost}}
   span.name.pull-left {{card.name}}
-  span.count(ng-show="cardCount > 1") {{cardCount}}
+  span.count(data-ng-show="cardCount > 1") {{cardCount}}
