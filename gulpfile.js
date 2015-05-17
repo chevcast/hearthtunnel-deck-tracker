@@ -13,13 +13,13 @@ gulp.gm = require('gulp-gm');
 gulp.mergeStreams = require('merge-stream');
 
 // The default task simply runs all the compile tasks.
-gulp.task('default', [
+gulp.task('build', [
   'compile-html',
   'compile-css',
   'compile-js',
   'compile-bower',
   'process-data',
-  'process-images'
+  'process-card-images'
 ]);
 
 // Find all Jade templates and compile them into HTML.
@@ -73,7 +73,7 @@ gulp.task('compile-bower', function () {
 });
 
 // Move card images and generate thumbnails.
-gulp.task('process-images', function () {
+gulp.task('process-card-images', function () {
   // Copy all source images.
   var images = gulp.src('./src/imgs/**/*')
     .pipe(gulp.dest('./build/imgs/'))
@@ -91,7 +91,7 @@ gulp.task('process-images', function () {
   return gulp.mergeStreams(images, cardThumbnails);
 });
 
-// Transform card data and move template decks.
+// Transform card data.
 gulp.task('process-data', function () {
   // Transform card data into a flat array.
   var cardData = gulp.src('./src/data/all-sets.json').pipe(gulp.jsonEditor(function (cardSets) {
@@ -106,16 +106,11 @@ gulp.task('process-data', function () {
     return cardMap;
   })).pipe(gulp.rename('cards.json')).pipe(gulp.dest('./build/data'));;
 
-  // Move template decks.
-  var defaultDecks = gulp.src('./src/data/decks/*')
-    .pipe(gulp.dest('./build/data/decks'))
-    .pipe(gulp.livereload());
-
-  return gulp.mergeStreams(cardData, defaultDecks);
+  return cardData;
 });
 
 // Run all compile tasks, start a livereload server, and add some watcher messages.
-gulp.task('watch', ['default'], function () {
+gulp.task('watch', function () {
   // The change event is the same for all the watchers.
   var onChange = function (event) {
     var filePath = path.relative('./', event.path);
@@ -128,14 +123,13 @@ gulp.task('watch', ['default'], function () {
   gulp.watch('./src/js/**/*.js', ['compile-js']).on('change', onChange);
   gulp.watch('./src/data/all-sets.json', ['process-data']).on('change', onChange);;
   gulp.watch('./src/data/decks/*', ['process-data']).on('change', onChange);;
-  gulp.watch('./src/imgs/**/*', ['process-images']).on('change', onChange);;
 
   // Start livereload server to wait for piped filenames.
   gulp.livereload.listen({ basePath: './build' });
 });
 
 // Run all compile tasks and then build executables for the application.
-gulp.task('deploy', ['default'], function () {
+gulp.task('deploy', ['build'], function () {
   // Instantiate Nwbuilder.
   var nw = new NwBuilder({
     files: ['./package.json', './build/**/*'], // use the glob format

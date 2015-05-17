@@ -19,7 +19,7 @@
   "dependencies": {
     "bluebird": "^2.9.25",
     "extend": "^2.0.1",
-    "hearthstone-log-watcher": "^1.2.2",
+    "hearthstone-log-watcher": "^1.2.3",
     "lodash": "^3.8.0",
     "mongoose": "^4.0.2",
     "nw": "^0.12.1"
