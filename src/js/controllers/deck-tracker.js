@@ -2,7 +2,7 @@ var path = require('path');
 var LogWatcher = require('hearthstone-log-watcher');
 var decksPath = path.join(__dirname, '..', '..', 'data', 'decks');
 
-module.exports = function ($rootScope, $scope, $routeParams, $window, mainWindow) {
+module.exports = function ($rootScope, $scope, $routeParams, mainWindow) {
   $rootScope.title = "Deck Tracker";
   $scope.selectedZone = "deck";
   $scope.friendlyName = "Friendly Player";

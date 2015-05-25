@@ -7,9 +7,9 @@
     "title": "Hearthtunnel Deck Tracker",
     "width": 275,
     "height": 500,
-    "frame": true,
-    "toolbar": true,
-    "transparent": false
+    "frame": false,
+    "toolbar": false,
+    "transparent": true
   },
   "scripts": {
     "start": "nw"
