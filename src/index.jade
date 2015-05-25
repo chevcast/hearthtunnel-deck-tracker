@@ -17,6 +17,10 @@ html(data-ng-app="app")
       var mainWindow = gui.Window.get();
       mainWindow.setMaximumSize(275, 1000);
       mainWindow.setMinimumSize(275, 275);
+      mainWindow.redraw = function () {
+        this.resizeTo(this.width, this.height + 1);
+        this.resizeTo(this.width, this.height - 1);
+      };
 
       // Weird hack to fix copy/paste shortcuts on OS X.
       if (process.platform === "darwin") {
@@ -27,8 +31,8 @@ html(data-ng-app="app")
         mainWindow.menu = mb;
       }
 
-      mainWindow.focus();
-      var devTools = mainWindow.showDevTools();
+      //-mainWindow.focus();
+      //-var devTools = mainWindow.showDevTools();
 
       // Clear module cache so livereload works with required modules.
       Object.keys(global.require.cache).forEach(function (key) {

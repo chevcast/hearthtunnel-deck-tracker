@@ -1,1 +1,14 @@
-div
+div#deck-tracker
+  div.versus {{friendlyName}} <span class="vs">vs</span> {{opposingName}}
+  hr
+  select(data-ng-model="selectedZone")
+    option(selected="selected", value="deck") Deck
+    option(value="hand") Hand
+    option(value="play") In Play
+    option(value="grave") Graveyard
+  h1 {{selectedZone}}
+  div.zones
+    div.deck
+    div.hand
+    div.play
+    div.grave

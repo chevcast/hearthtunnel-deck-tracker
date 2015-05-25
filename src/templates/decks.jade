@@ -9,7 +9,7 @@ div#decks
         data-deck-name="{{deck.name}}",
         data-deck-file="{{deck.fileName}}",
         data-interactive="true",
-        data-ng-click="go('/deck-tracker/{{deck.fileName}}')",
+        data-ng-click="go('/deck-tracker/' + deck.fileName)",
         title="Select {{deck.name}} Deck"
       )
   span.new-deck.glyphicon.glyphicon-plus(
