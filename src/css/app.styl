@@ -275,22 +275,43 @@ div#deck-tracker
   text-align: center
   height: 100%
   position: relative
-  div.zone-selectors
-    button.btn
-      margin-right: 3px
-      opacity: .5
-      &.active
-        font-weight: bold
-        opacity: 1
-        font-size: larger
-      &:hover
-        font-weight: bold
-        opacity: 1
+  select
+    margin-bottom: 5px
   div.zones
+    height: calc(100% - 120px)
+    position: relative
+    margin-bottom: 15px
+    div
+      height: 100%
+      ul
+        list-style: none
+        text-align: center
+        padding: 10px
+        height: 100% 
+        margin-bottom: 15px
+        overflow: auto
+        background-color: #000
+        border: solid 1px darken(forecolor, 25%)
+        li
+          margin: 0
+          padding: 0
+          height: 32px
+          position: relative
+        &.friendly-list
+          border: solid 1px darken(secondarycolor, 25%)
+        &.opposing-list
+          border: solid 1px darken(#f00, 25%)
   div.versus
-    font-size: 11px
+    margin-bottom: 10px
     span.vs
       font-size: 20px
+      margin: 0 5px 0 5px
+    button.btn
+      font-size: 8px
+      width: 100px
+      &.selected
+        border: solid 1px #fff
+        font-weight: bold
 
 div#deck-builder
   padding: 10px

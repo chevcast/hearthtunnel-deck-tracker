@@ -27,8 +27,9 @@ module.exports = function ($rootScope, $scope, $routeParams, utils, cards) {
           $scope.totalCards += count;
           return {
             id: cardId,
-            count: count
-          }
+            count: count,
+            cost: cards[cardId].cost
+          };
         });
       }, true);
       break;

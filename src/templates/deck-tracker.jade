@@ -1,14 +1,72 @@
 div#deck-tracker
-  div.versus {{friendlyName}} <span class="vs">vs</span> {{opposingName}}
-  hr
   select(data-ng-model="selectedZone")
     option(value="deck") Deck
     option(value="hand") Hand
     option(value="play") In Play
     option(value="grave") Graveyard
-  h1 {{selectedZone}}
+  div.versus
+    button.btn.btn-success(data-ng-click="selectedTeam = 'friendly'", data-ng-class="{ selected: selectedTeam === 'friendly'}") {{friendlyName}}
+    span.vs vs
+    button.btn.btn-danger(data-ng-click="selectedTeam = 'opposing'", data-ng-class="{ selected: selectedTeam === 'opposing'}") {{opposingName}}
   div.zones
-    div.deck
-    div.hand
-    div.play
-    div.grave
+    div.deck(data-ng-show="selectedZone === 'deck'")
+      ul.friendly-list(data-ng-show="selectedTeam === 'friendly'")
+        li(data-ng-repeat="card in friendlyDeckZone | orderBy:'cost'")
+          div(
+            data-card-thumbnail,
+            data-card-id="{{card.id}}",
+            data-card-count="{{card.count}}"
+          )
+      ul.opposing-list(data-ng-show="selectedTeam === 'opposing'")
+        li(data-ng-repeat="card in opposingDeckZone")
+          div(
+            data-card-thumbnail,
+            data-card-id="{{card.id}}",
+            data-card-count="{{card.count}}"
+          )
+    div.hand(data-ng-show="selectedZone === 'hand'")
+      ul.friendly-list(data-ng-show="selectedTeam === 'friendly'")
+        li(data-ng-repeat="card in friendlyHandZone")
+          div(
+            data-card-thumbnail,
+            data-card-id="{{card.id}}",
+            data-card-count="{{card.count}}"
+          )
+      ul.opposing-list(data-ng-show="selectedTeam === 'opposing'")
+        li(data-ng-repeat="card in opposingHandZone")
+          div(
+            data-card-thumbnail,
+            data-card-id="{{card.id}}",
+            data-card-count="{{card.count}}"
+          )
+    div.play(data-ng-show="selectedZone === 'play'")
+      ul.friendly-list(data-ng-show="selectedTeam === 'friendly'")
+        li(data-ng-repeat="card in friendlyPlayZone")
+          div(
+            data-card-thumbnail,
+            data-card-id="{{card.id}}",
+            data-card-count="{{card.count}}"
+          )
+      ul.opposing-list(data-ng-show="selectedTeam === 'opposing'")
+        li(data-ng-repeat="card in opposingPlayZone")
+          div(
+            data-card-thumbnail,
+            data-card-id="{{card.id}}",
+            data-card-count="{{card.count}}"
+          )
+    div.grave(data-ng-show="selectedZone === 'grave'")
+      ul.friendly-list(data-ng-show="selectedTeam === 'friendly'")
+        li(data-ng-repeat="card in friendlyGraveZone")
+          div(
+            data-card-thumbnail,
+            data-card-id="{{card.id}}",
+            data-card-count="{{card.count}}"
+          )
+      ul.opposing-list(data-ng-show="selectedTeam === 'opposing'")
+        li(data-ng-repeat="card in opposingGraveZone")
+          div(
+            data-card-thumbnail,
+            data-card-id="{{card.id}}",
+            data-card-count="{{card.count}}"
+          )
+  button.btn.btn-info(data-ng-click="done()") Done

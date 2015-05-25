@@ -24,7 +24,7 @@ div#deck-builder
     )
       span.glyphicon.glyphicon-plus
   ul#cards
-    li(data-ng-repeat="card in cards")
+    li(data-ng-repeat="card in cards | orderBy:'cost'")
       div(
         data-card-thumbnail,
         data-card-id="{{card.id}}",
