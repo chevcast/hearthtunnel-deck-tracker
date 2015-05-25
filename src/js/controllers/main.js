@@ -17,4 +17,7 @@ module.exports = function ($rootScope, $scope, mainWindow) {
     }
   };
   $rootScope.loading = false;
+  $rootScope.$on('$routeChangeSuccess', function (e) {
+    mainWindow.redraw();
+  });
 };

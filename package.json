@@ -17,10 +17,10 @@
   "author": "chevex",
   "license": "ISC",
   "dependencies": {
-    "bluebird": "^2.9.25",
+    "bluebird": "^2.9.26",
     "extend": "^2.0.1",
-    "hearthstone-log-watcher": "^1.2.3",
-    "lodash": "^3.9.1",
+    "hearthstone-log-watcher": "^2.0.3",
+    "lodash": "^3.9.2",
     "mongoose": "^4.0.3",
     "nw": "^0.12.2"
   },

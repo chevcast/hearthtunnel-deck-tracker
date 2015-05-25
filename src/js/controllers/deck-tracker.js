@@ -20,7 +20,6 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow) {
       players.forEach(function (player) {
         $scope[player.team.toLowerCase() + 'Name'] = player.name;
       });
-      mainWindow.redraw();
     });
   });
   logWatcher.on('zone-change', console.log.bind(console));
