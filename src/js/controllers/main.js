@@ -18,7 +18,6 @@ module.exports = function ($rootScope, $scope, mainWindow) {
   };
   $rootScope.loading = false;
   $rootScope.$on('$routeChangeSuccess', function (e, data) {
-    console.log(data.redirectTo);
     if (data.redirectTo !== undefined) {
       mainWindow.redraw();
     }
