@@ -17,9 +17,11 @@ module.exports = function ($rootScope, $scope, mainWindow) {
     }
   };
   $rootScope.loading = false;
-  $rootScope.$on('$routeChangeSuccess', function (e, data) {
-    if (data.redirectTo !== undefined) {
-      mainWindow.redraw();
-    }
-  });
+  /*
+   *$rootScope.$on('$routeChangeSuccess', function (e, data) {
+   *  if (data.redirectTo !== undefined) {
+   *    mainWindow.redraw();
+   *  }
+   *});
+   */
 };
