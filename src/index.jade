@@ -31,8 +31,8 @@ html(data-ng-app="app")
         mainWindow.menu = mb;
       }
 
-      //-mainWindow.focus();
-      //-var devTools = mainWindow.showDevTools();
+      mainWindow.focus();
+      var devTools = mainWindow.showDevTools();
 
       // Clear module cache so livereload works with required modules.
       Object.keys(global.require.cache).forEach(function (key) {
