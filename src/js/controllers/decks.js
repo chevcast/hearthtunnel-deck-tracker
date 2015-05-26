@@ -6,6 +6,9 @@ bluebird.promisifyAll(fs);
 module.exports = function ($scope, $rootScope, utils) {
   $rootScope.title = "My Decks";
   var decksPath = path.join(__dirname, '..', '..', 'data', 'decks');
+  if (!fs.existsSync(decksPath)) {
+    fs.mkdirSync(decksPath);
+  }
   $scope.decks = [];
   fs.readdirAsync(decksPath).then(function (decks) {
     $scope.$apply(function () {
