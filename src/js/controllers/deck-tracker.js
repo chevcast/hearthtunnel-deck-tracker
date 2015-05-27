@@ -32,7 +32,6 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow, cards, 
 
   // Monitor tracking arrays and update zone display arrays.
   $scope.$watchCollection('friendlyDeck', function (friendlyDeck) {
-    console.log('friendlyDeck changed, updating friendlyDeckZone');
     $scope.friendlyDeckZone.length = 0;
     friendlyDeck.forEach(function (card) {
       var cardExists = false;
@@ -48,13 +47,16 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow, cards, 
         $scope.friendlyDeckZone.push({
           id: card.id,
           count: 1,
-          cost: cost
+          collectible: cardInfo.collectible,
+          playerClass: cardInfo.playerClass,
+          cost: cost,
+          type: cardInfo.type,
+          name: cardInfo.name
         });
       }
     });
   });
   $scope.$watchCollection('friendlyHand', function (friendlyHand) {
-    console.log('friendlyHand changed, updating friendlyHandZone');
     $scope.friendlyHandZone.length = 0;
     friendlyHand.forEach(function (card) {
       var cardExists = false;
@@ -70,13 +72,16 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow, cards, 
         $scope.friendlyHandZone.push({
           id: card.id,
           count: 1,
-          cost: cost
+          collectible: cardInfo.collectible,
+          playerClass: cardInfo.playerClass,
+          cost: cost,
+          type: cardInfo.type,
+          name: cardInfo.name
         });
       }
     });
   });
   $scope.$watchCollection('friendlyPlay', function (friendlyPlay) {
-    console.log('friendlyPlay changed, updating friendlyPlayZone');
     $scope.friendlyPlayZone.length = 0;
     friendlyPlay.forEach(function (card) {
       var cardExists = false;
@@ -92,13 +97,16 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow, cards, 
         $scope.friendlyPlayZone.push({
           id: card.id,
           count: 1,
-          cost: cost
+          collectible: cardInfo.collectible,
+          playerClass: cardInfo.playerClass,
+          cost: cost,
+          type: cardInfo.type,
+          name: cardInfo.name
         });
       }
     });
   });
   $scope.$watchCollection('friendlyGraveyard', function (friendlyGraveyard) {
-    console.log('friendlyGraveyard changed, updating friendlyPlayZone');
     $scope.friendlyGraveyardZone.length = 0;
     friendlyGraveyard.forEach(function (card) {
       var cardExists = false;
@@ -114,13 +122,16 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow, cards, 
         $scope.friendlyGraveyardZone.push({
           id: card.id,
           count: 1,
-          cost: cost
+          collectible: cardInfo.collectible,
+          playerClass: cardInfo.playerClass,
+          cost: cost,
+          type: cardInfo.type,
+          name: cardInfo.name
         });
       }
     });
   });
   $scope.$watchCollection('opposingDeck', function (opposingDeck) {
-    console.log('opposingDeck changed, updating opposingDeckZone');
     $scope.opposingDeckZone.length = 0;
     opposingDeck.forEach(function (card) {
       var cardExists = false;
@@ -136,13 +147,16 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow, cards, 
         $scope.opposingDeckZone.push({
           id: card.id,
           count: 1,
-          cost: cost
+          collectible: cardInfo.collectible,
+          playerClass: cardInfo.playerClass,
+          cost: cost,
+          type: cardInfo.type,
+          name: cardInfo.name
         });
       }
     });
   });
   $scope.$watchCollection('opposingHand', function (opposingHand) {
-    console.log('opposingHand changed, updating opposingHandZone');
     $scope.opposingHandZone.length = 0;
     opposingHand.forEach(function (card) {
       var cardExists = false;
@@ -158,13 +172,16 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow, cards, 
         $scope.opposingHandZone.push({
           id: card.id,
           count: 1,
-          cost: cost
+          collectible: cardInfo.collectible,
+          playerClass: cardInfo.playerClass,
+          cost: cost,
+          type: cardInfo.type,
+          name: cardInfo.name
         });
       }
     });
   });
   $scope.$watchCollection('opposingPlay', function (opposingPlay) {
-    console.log('opposingPlay changed, updating opposingPlayZone');
     $scope.opposingPlayZone.length = 0;
     opposingPlay.forEach(function (card) {
       var cardExists = false;
@@ -180,13 +197,16 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow, cards, 
         $scope.opposingPlayZone.push({
           id: card.id,
           count: 1,
-          cost: cost
+          collectible: cardInfo.collectible,
+          playerClass: cardInfo.playerClass,
+          cost: cost,
+          type: cardInfo.type,
+          name: cardInfo.name
         });
       }
     });
   });
   $scope.$watchCollection('opposingGraveyard', function (opposingGraveyard) {
-    console.log('opposingGraveyard changed, updating opposingGraveyardZone');
     $scope.opposingGraveyardZone.length = 0;
     opposingGraveyard.forEach(function (card) {
       var cardExists = false;
@@ -202,7 +222,11 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow, cards, 
         $scope.opposingGraveyardZone.push({
           id: card.id,
           count: 1,
-          cost: cost
+          collectible: cardInfo.collectible,
+          playerClass: cardInfo.playerClass,
+          cost: cost,
+          type: cardInfo.type,
+          name: cardInfo.name
         });
       }
     });
@@ -233,7 +257,6 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow, cards, 
 
   // Associate deck cards with reported entities, or add new cards.
   logWatcher.on('zone-change', function (data) {
-    console.log('zone-change occured: ', data);
     if (data.cardName === 'The Coin') {
       debugger;
     }
@@ -265,7 +288,6 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow, cards, 
         $scope[team + 'Hand'].forEach(function (handCard, index, zone) {
           if (handCard.id === data.cardId) {
             if (handCard.entityId === data.entityId) {
-              console.log('Card found in hand, removing it.');
               card = handCard;
               entityFound = true;
               zone.splice(index, 1);
@@ -277,7 +299,6 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow, cards, 
         $scope[team + 'Play'].forEach(function (playCard, index, zone) {
           if (playCard.id === data.cardId) {
             if (playCard.entityId === data.entityId) {
-              console.log('Card found in play, removing it.');
               card = playCard;
               entityFound = true;
               zone.splice(index, 1);
@@ -289,7 +310,6 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow, cards, 
         $scope[team + 'Graveyard'].forEach(function (graveCard, index, zone) {
           if (graveCard.id === data.cardId) {
             if (graveCard.entityId === data.entityId) {
-              console.log('Card found in graveyard, removing it.');
               card = graveCard;
               entityFound = true;
               zone.splice(index, 1);
@@ -301,11 +321,9 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow, cards, 
         $scope[team + 'Deck'].forEach(function (deckCard, index, zone) {
           if (deckCard.id === data.cardId) {
             if (deckCard.entityId === null) {
-              console.log('Card not found in any other zones. Associating with card in deck.');
               deckCard.entityId = data.entityId;
             }
             if (deckCard.entityId === data.entityId) {
-              console.log('Card found in deck, removing it.');
               card = deckCard;
               entityFound = true;
               zone.splice(index, 1);
@@ -315,7 +333,6 @@ module.exports = function ($rootScope, $scope, $routeParams, mainWindow, cards, 
       }
       
       // Put card into new zone.
-      console.log('Moving card to %s', newZone);
       $scope[newZone].push(card);
     });
   });

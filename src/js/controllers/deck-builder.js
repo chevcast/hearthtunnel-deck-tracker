@@ -25,10 +25,15 @@ module.exports = function ($rootScope, $scope, $routeParams, utils, cards) {
         $scope.cards = Object.keys(newValue).map(function (cardId) {
           var count = $scope.deck.cards[cardId];
           $scope.totalCards += count;
+          var cardInfo = cards[cardId];
           return {
             id: cardId,
             count: count,
-            cost: cards[cardId].cost
+            collectible: cardInfo.collectible,
+            playerClass: cardInfo.playerClass,
+            cost: cardInfo.cost,
+            type: cardInfo.type,
+            name: cardInfo.name
           };
         });
       }, true);

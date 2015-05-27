@@ -11,14 +11,14 @@ div#deck-tracker
   div.zones
     div.deck(data-ng-show="selectedZone === 'deck'")
       ul.friendly-list(data-ng-show="selectedTeam === 'friendly'")
-        li(data-ng-repeat="card in friendlyDeckZone | orderBy:'cost'")
+        li(data-ng-repeat="card in friendlyDeckZone | cardSort")
           div(
             data-card-thumbnail,
             data-card-id="{{card.id}}",
             data-card-count="{{card.count}}"
           )
       ul.opposing-list(data-ng-show="selectedTeam === 'opposing'")
-        li(data-ng-repeat="card in opposingDeckZone")
+        li(data-ng-repeat="card in opposingDeckZone | cardSort")
           div(
             data-card-thumbnail,
             data-card-id="{{card.id}}",
@@ -26,14 +26,14 @@ div#deck-tracker
           )
     div.hand(data-ng-show="selectedZone === 'hand'")
       ul.friendly-list(data-ng-show="selectedTeam === 'friendly'")
-        li(data-ng-repeat="card in friendlyHandZone | orderBy:'cost'")
+        li(data-ng-repeat="card in friendlyHandZone | cardSort")
           div(
             data-card-thumbnail,
             data-card-id="{{card.id}}",
             data-card-count="{{card.count}}"
           )
       ul.opposing-list(data-ng-show="selectedTeam === 'opposing'")
-        li(data-ng-repeat="card in opposingHandZone | orderBy:'cost'")
+        li(data-ng-repeat="card in opposingHandZone | cardSort")
           div(
             data-card-thumbnail,
             data-card-id="{{card.id}}",
@@ -41,14 +41,14 @@ div#deck-tracker
           )
     div.play(data-ng-show="selectedZone === 'play'")
       ul.friendly-list(data-ng-show="selectedTeam === 'friendly'")
-        li(data-ng-repeat="card in friendlyPlayZone | orderBy:'cost'")
+        li(data-ng-repeat="card in friendlyPlayZone | cardSort")
           div(
             data-card-thumbnail,
             data-card-id="{{card.id}}",
             data-card-count="{{card.count}}"
           )
       ul.opposing-list(data-ng-show="selectedTeam === 'opposing'")
-        li(data-ng-repeat="card in opposingPlayZone | orderBy:'cost'")
+        li(data-ng-repeat="card in opposingPlayZone | cardSort")
           div(
             data-card-thumbnail,
             data-card-id="{{card.id}}",
@@ -56,14 +56,14 @@ div#deck-tracker
           )
     div.grave(data-ng-show="selectedZone === 'grave'")
       ul.friendly-list(data-ng-show="selectedTeam === 'friendly'")
-        li(data-ng-repeat="card in friendlyGraveyardZone | orderBy:'cost'")
+        li(data-ng-repeat="card in friendlyGraveyardZone | cardSort")
           div(
             data-card-thumbnail,
             data-card-id="{{card.id}}",
             data-card-count="{{card.count}}"
           )
       ul.opposing-list(data-ng-show="selectedTeam === 'opposing'")
-        li(data-ng-repeat="card in opposingGraveyardZone | orderBy:'cost'")
+        li(data-ng-repeat="card in opposingGraveyardZone | cardSort")
           div(
             data-card-thumbnail,
             data-card-id="{{card.id}}",

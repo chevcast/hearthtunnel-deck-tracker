@@ -23,7 +23,8 @@ module.exports = function ($rootScope, $scope, utils) {
       $scope.deckName = 'Custom ' + deckClass;
     }
     var deckFile = $scope.deckName.replace(/ /g, '-').toLowerCase() + '.json';
-    var deckPath = path.join(__dirname, '..', '..', 'data', 'decks', deckFile);
+    var deckDirectory = path.join(__dirname, '..', '..', 'data', 'decks');
+    var deckPath = path.join(deckDirectory, deckFile);
 
     var deckData = {
       name: $scope.deckName,
@@ -32,6 +33,11 @@ module.exports = function ($rootScope, $scope, utils) {
     };
 
     $rootScope.loading = true;
+    if (fs.existsSync(deckPath)) {
+      var files = fs.readdirSync(deckDirectory);
+      deckFile = $scope.deckName.replace(/ /g, '-').toLowerCase() + '-' + files.length + '.json';
+      deckPath = path.join(deckDirectory, deckFile);
+    }
     fs.writeFileAsync(deckPath, JSON.stringify(deckData, null, '\t'))
       .then(function () {
         $scope.$apply(function () {

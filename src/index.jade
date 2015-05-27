@@ -46,6 +46,7 @@ html(data-ng-app="app")
       });
       app.factory('utils', require('./js/services/utils.js'));
       app.factory('cards', require('./js/services/cards.js'));
+      app.filter('cardSort', require('./js/filters/card-sort.js'));
       app.filter('collectible', require('./js/filters/collectible.js'));
       app.directive('deckCover', require('./js/directives/deck-cover.js'));
       app.directive('cardThumbnail', require('./js/directives/card-thumbnail.js'));
