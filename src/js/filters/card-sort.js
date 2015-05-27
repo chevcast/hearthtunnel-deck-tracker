@@ -4,7 +4,8 @@ module.exports = function ($filter) {
     var typeSort = function (card) {
       var typePriority = {
         'Spell': 0,
-        'Minion': 1
+        'Weapon': 1,
+        'Minion': 2
       };
       return typePriority[card.type];
     };
