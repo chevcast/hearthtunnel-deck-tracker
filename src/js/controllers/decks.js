@@ -11,7 +11,6 @@ module.exports = function ($scope, $rootScope, utils) {
   }
   $scope.decks = [];
   fs.readdirAsync(decksPath).then(function (decks) {
-    console.log(decks)
     $scope.$apply(function () {
       decks = decks.filter(function (deckFile) {
         return path.extname(deckFile) === '.json';
