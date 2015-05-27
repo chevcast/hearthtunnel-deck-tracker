@@ -26,14 +26,14 @@ div#deck-tracker
           )
     div.hand(data-ng-show="selectedZone === 'hand'")
       ul.friendly-list(data-ng-show="selectedTeam === 'friendly'")
-        li(data-ng-repeat="card in friendlyHandZone")
+        li(data-ng-repeat="card in friendlyHandZone | orderBy:'cost'")
           div(
             data-card-thumbnail,
             data-card-id="{{card.id}}",
             data-card-count="{{card.count}}"
           )
       ul.opposing-list(data-ng-show="selectedTeam === 'opposing'")
-        li(data-ng-repeat="card in opposingHandZone")
+        li(data-ng-repeat="card in opposingHandZone | orderBy:'cost'")
           div(
             data-card-thumbnail,
             data-card-id="{{card.id}}",
@@ -41,14 +41,14 @@ div#deck-tracker
           )
     div.play(data-ng-show="selectedZone === 'play'")
       ul.friendly-list(data-ng-show="selectedTeam === 'friendly'")
-        li(data-ng-repeat="card in friendlyPlayZone")
+        li(data-ng-repeat="card in friendlyPlayZone | orderBy:'cost'")
           div(
             data-card-thumbnail,
             data-card-id="{{card.id}}",
             data-card-count="{{card.count}}"
           )
       ul.opposing-list(data-ng-show="selectedTeam === 'opposing'")
-        li(data-ng-repeat="card in opposingPlayZone")
+        li(data-ng-repeat="card in opposingPlayZone | orderBy:'cost'")
           div(
             data-card-thumbnail,
             data-card-id="{{card.id}}",
@@ -56,14 +56,14 @@ div#deck-tracker
           )
     div.grave(data-ng-show="selectedZone === 'grave'")
       ul.friendly-list(data-ng-show="selectedTeam === 'friendly'")
-        li(data-ng-repeat="card in friendlyGraveZone")
+        li(data-ng-repeat="card in friendlyGraveyardZone | orderBy:'cost'")
           div(
             data-card-thumbnail,
             data-card-id="{{card.id}}",
             data-card-count="{{card.count}}"
           )
       ul.opposing-list(data-ng-show="selectedTeam === 'opposing'")
-        li(data-ng-repeat="card in opposingGraveZone")
+        li(data-ng-repeat="card in opposingGraveyardZone | orderBy:'cost'")
           div(
             data-card-thumbnail,
             data-card-id="{{card.id}}",
