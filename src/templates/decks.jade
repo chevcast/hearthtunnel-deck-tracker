@@ -2,7 +2,7 @@ div#decks
   ul#decks-list
     li.text-center(data-ng-show="decks.length === 0")
       h3 No decks.
-    li(data-ng-repeat="deck in decks")
+    li(data-ng-repeat="deck in decks track by $index")
       div(
         data-deck-cover,
         data-deck-class="{{deck.deckClass}}",
