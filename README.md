@@ -20,7 +20,7 @@ A Hearthstone deck tracker application created using [nw.js](http://nwjs.io/).
 
 3. Build project assets using [gulp](http://gulpjs.com/).
 
-   > $ gulp
+   > $ gulp build
 
 ## Run
 
